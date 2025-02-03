@@ -18,7 +18,7 @@
 */
 VAR gold = 5
 VAR time = -1 //  0 Morning, 1 Noon, 2 Night
-
+VAR berries = 0
 ->theMagicBakery
 == theMagicBakery ==
  The aroma of warm pastries and cinnamon fills the air. You are standing inside The Magic Backery. Today you nned create a legendary Moonlight Croissant. "Welcome guys!", The bakery's head witch. "A Moonlight Croissant needs three special ingredients. Choose wisely, for the magic will change depending on what you use!!"
@@ -35,7 +35,7 @@ It is {advance_time()}
 
 * { time == 0 }[Buy the Moonflower Essence (Costs 3 gold)] {gold >= 3} -> buy_Moonflower
 * [Talk to the mysterious spice merchant] -> spice_merchant
-* [Leave the market] -> return_to_bakery
+* [Leave the market] -> theMagicBakery
 
 == buy_Moonflower ==
 You hand over 3 gold and carefully take the Moonflower Essence.
@@ -47,7 +47,7 @@ The spice merchant whispers, "A touch of Celestial Cinnamon can make any pastry 
 
 
 * [Trade for the Celestial Cinnamon] -> get_cinnamon
-* [Decline and leave] -> return_to_bakery
+* [Decline and leave] -> theMagicBakery
 
 == get_cinnamon ==
 You trade for the Celestial Cinnamon.
@@ -62,11 +62,15 @@ The Enchanted Forest is full of glowing mushrooms, whispering trees, and hidden 
 
 == pick_berries ==
 {not pick_berries: You carefully collect the Stardust Berries, which sparkle like tiny stars.}
--> storage
+->return_to_bakery
+~ berries = berries + 100
+You now have a torch. May it light the way.
+* [Go bakery] -> return_to_bakery
+-> END
 
 == deeper_forest ==
 You sense something powerful nearby--- A Fairy’s Blessing! This rare magic can enhance any baked good.
--> return_to_bakery
+-> Master
 
 == storage ==
 The storage room is dark and dusty, but you find a jar labeled Moonlit Sugar*, a rare and sweet magical ingredient.
@@ -87,6 +91,9 @@ You return to the bakery, ready to bake your Moonlight Croissant.
 * [ Make a croissant with cinnamon ] -> cinnamon_croissant
 * [ Make a croissant with berry ] -> berry_crossiant
 
+== Master ==
+You are already a master baker! You have the blessing of the fairies and you don't need to go shopping for any ingredients now, just use magic to make any kosher.
+-> END
 
 == moonflower_croissant ==
 As the croissant bakes, it glows softly. When you take a bite, you feel a deeo sense of peace and clarity, as if the stars themselves are watching over you.
@@ -102,7 +109,6 @@ The Stardust Berries give the croissant a sparkling, magical aftertaste, and you
 
 == ending ==
 "Well done, apprentice! You have baked a magical delight." 
-Your journey as a magical baker has only just begun...
 -> END
 
 
