@@ -30,7 +30,7 @@ VAR time = -1 //  0 Morning, 1 Noon, 2 Night
 + [Check the Bakery's Storage Room] ->storage
 
 == market ==
-
+The bustling Magical Market is filled with potion sellers, spice traders, and mystical bakers. You spot a glowing vial of Moonflower Essence for sale.
 It is {advance_time()}
 
 * { time == 0 }[Buy the Moonflower Essence (Costs 3 gold)] {gold >= 3} -> buy_Moonflower
@@ -40,22 +40,21 @@ It is {advance_time()}
 == buy_Moonflower ==
 You hand over 3 gold and carefully take the Moonflower Essence.
 ~ gold = gold - 3
--> return_to_bakery
+-> storage
 
 == spice_merchant ==
 The spice merchant whispers, "A touch of Celestial Cinnamon can make any pastry glow under the moonlight. But beware—it may cause unexpected wishes!"
 
-It is {advance_time() }
 
-* { time == 1 }[Trade for the Celestial Cinnamon] -> get_cinnamon
+* [Trade for the Celestial Cinnamon] -> get_cinnamon
 * [Decline and leave] -> return_to_bakery
 
 == get_cinnamon ==
 You trade for the Celestial Cinnamon.
--> return_to_bakery
+->storage
 
 == forest ==
-
+The Enchanted Forest is full of glowing mushrooms, whispering trees, and hidden creatures. You spot Stardust Berries growing near a river.
  It is {advance_time() }
  
 * { time == 2 }[Pick the Stardust Berries] -> pick_berries
@@ -63,14 +62,14 @@ You trade for the Celestial Cinnamon.
 
 == pick_berries ==
 {not pick_berries: You carefully collect the Stardust Berries, which sparkle like tiny stars.}
-~ gold = gold +- 0
--> return_to_bakery
+-> storage
 
 == deeper_forest ==
 You sense something powerful nearby--- A Fairy’s Blessing! This rare magic can enhance any baked good.
 -> return_to_bakery
 
 == storage ==
+The storage room is dark and dusty, but you find a jar labeled Moonlit Sugar*, a rare and sweet magical ingredient.
 * [Take the Moonlit Sugar] -> take_sugar
 * [Look for something else] -> storage_search
 
